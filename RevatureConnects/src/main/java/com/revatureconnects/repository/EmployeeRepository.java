@@ -7,5 +7,9 @@ import com.revatureconnects.entity.Employee;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {
+	
+	Employee findByEmail(String email);
+	
+	boolean existsByEmail(String email);
 
 }
