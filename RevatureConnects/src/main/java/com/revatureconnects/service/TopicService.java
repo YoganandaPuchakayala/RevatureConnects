@@ -9,5 +9,5 @@ public interface TopicService {
 	Topics createTopic(Topics topic);
 	
 	List<Topics> allTopics();
-
-}
+	
+    void deleteTopicById(Long topicId);}

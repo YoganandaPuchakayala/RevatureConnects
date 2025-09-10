@@ -2,11 +2,7 @@ package com.revatureconnects.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,7 +33,7 @@ public class Employee {
     private Role role; 
     
     @ManyToMany(mappedBy = "assignedEmployees", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonIgnore
     private List<Curriculum> assignedCurriculums = new ArrayList<>();
 
 	public Long getEmpId() {

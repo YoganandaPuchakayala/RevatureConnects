@@ -28,4 +28,10 @@ public class TopicsServiceImpl implements TopicService {
 		return topicsRepo.findAll();
 	}
 
+	@Override
+	public void deleteTopicById(Long topicId) {
+		
+		topicsRepo.deleteById(topicId);
+	}
+
 }

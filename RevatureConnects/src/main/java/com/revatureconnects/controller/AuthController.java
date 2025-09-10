@@ -49,7 +49,8 @@ public class AuthController {
         String jwtToken = jwtService.generateToken(userDetails.getUsername());
         
         Employee employee = employeeRepository.findByEmail(userDetails.getUsername());
-
+        
+        System.out.println("Login request received for: " + request.getEmail());
         return new LoginResponse(jwtToken, employee);
     }
 

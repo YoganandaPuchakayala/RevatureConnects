@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-
 import com.revatureconnects.dto.CurriculumRequest;
 import com.revatureconnects.entity.Curriculum;
 import com.revatureconnects.service.CurriculumService;
@@ -19,13 +19,15 @@ public class CurriculumController {
     private CurriculumService curriculumService;
     
     // creating the curriculums
-    @PostMapping(value = "/create", consumes = "application/json", produces = "application/json")
+    @PostMapping("/create")
+    @PreAuthorize("hasRole('TRAINER')")
     public Curriculum createCurriculum(@RequestBody CurriculumRequest request) {
         return curriculumService.CreateCurriculumWithModules(request.getCurriculum(), request.getModuleIds());
     }
     
     // assign curriculums to the employees
     @PostMapping(value = "/{curriculumId}/assign-employees", consumes = "application/json", produces = "application/json")
+    @PreAuthorize("hasRole('MANAGER')")
     public Curriculum assignEmployeesToCurriculum(
             @PathVariable Long curriculumId,
             @RequestBody List<Long> employeeIds) {
@@ -52,6 +54,7 @@ public class CurriculumController {
     
     // To delete the assigned curriculum to employee
     @DeleteMapping("/{empId}/remove-curriculum/{curriculumId}")
+    @PreAuthorize("hasRole('MANAGER')")
     public ResponseEntity<String> removeAssignedCurriculum(
             @PathVariable Long empId,
             @PathVariable Long curriculumId) {

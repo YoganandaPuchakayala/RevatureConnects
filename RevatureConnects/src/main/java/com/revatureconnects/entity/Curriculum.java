@@ -2,10 +2,7 @@ package com.revatureconnects.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,11 +24,12 @@ public class Curriculum {
             name = "employee_curriculum",
             joinColumns = @JoinColumn(name = "curriculum_id"),
             inverseJoinColumns = @JoinColumn(name = "employee_id")
-        )	@JsonBackReference
+        )	
+	@JsonIgnore
     private List<Employee> assignedEmployees = new ArrayList<>();
 	
 	@OneToMany(mappedBy = "curriculum", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonManagedReference  
+	@JsonIgnore  
 	private List<Modules> modules = new ArrayList<>();
 
 	public Long getCurriculumId() {
