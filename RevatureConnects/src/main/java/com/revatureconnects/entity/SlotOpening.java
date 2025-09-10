@@ -28,6 +28,47 @@ public class SlotOpening {
     @OneToMany(mappedBy = "slot", cascade = CascadeType.ALL)
     private List<SlotBooking> bookings;
 
+	public Long getSlotId() {
+		return slotId;
+	}
+
+	public void setSlotId(Long slotId) {
+		this.slotId = slotId;
+	}
+
+	public Employee getInterviewer() {
+		return interviewer;
+	}
+
+	public void setInterviewer(Employee interviewer) {
+		this.interviewer = interviewer;
+	}
+
+	public LocalDateTime getTime() {
+		return time;
+	}
+
+	public void setTime(LocalDateTime time) {
+		this.time = time;
+	}
+
+	public Boolean getIsBooked() {
+		return isBooked;
+	}
+
+	public void setIsBooked(Boolean isBooked) {
+		this.isBooked = isBooked;
+	}
+
+	public List<SlotBooking> getBookings() {
+		return bookings;
+	}
+
+	public void setBookings(List<SlotBooking> bookings) {
+		this.bookings = bookings;
+	}
+    
+    
     
     
 }
