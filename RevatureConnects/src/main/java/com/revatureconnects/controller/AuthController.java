@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -38,7 +39,7 @@ public class AuthController {
     @Autowired
     private EmployeeRepository employeeRepository;
     
-
+   // logging in employee
    @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginRequest request) {
         Authentication authentication = authenticationManager.authenticate(
@@ -54,7 +55,7 @@ public class AuthController {
         return new LoginResponse(jwtToken, employee);
     }
 
-    
+   // registering new employee
     @PostMapping("/register")
     public ResponseEntity<Map<String, String>> register(@RequestBody Employee employee) {
         employee.setPassword(passwordEncoder.encode(employee.getPassword()));
@@ -65,7 +66,9 @@ public class AuthController {
     }
 
     
-    @PutMapping("/update-role/{empId}")
+    // Only IT_ADMIN have the access to change the role level access of an employee. 
+    @PatchMapping("/update-role/{empId}")
+    @PreAuthorize("hasRole('IT_ADMIN')")
     public ResponseEntity<Map<String, String>> updateRole(
             @PathVariable Long empId,
             @RequestParam Role newRole) {

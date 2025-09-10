@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,7 @@ public class TopicsController {
 	private TopicService topicsService; 
 	
 	@PostMapping("/createTopic")
+	@PreAuthorize("hasRole('IT_ADMIN')")
 	public ResponseEntity<Topics> createTopic(@RequestBody Topics topic){
 		
 		topicsRepo.save(topic);
@@ -44,6 +46,7 @@ public class TopicsController {
 	}
 	
 	@DeleteMapping("/{id}")
+	@PreAuthorize("hasRole('IT_ADMIN')")
 	public ResponseEntity<Void> deleteTopic(@PathVariable("id") Long topicId){
         try {
             topicsService.deleteTopicById(topicId);
